@@ -25,6 +25,23 @@ namespace MVC5Course.Controllers
             //return View(db.Product.ToList()); 
         }
 
+        public ActionResult Index2()
+        {
+            var data = db.Product
+                .Where(c => c.Active == true)
+                .OrderByDescending(c => c.ProductId)
+                .Take(10)
+                .Select(p => new ProductViewModel
+                {
+                    ProductName = p.ProductName,
+                    ProductId = p.ProductId,
+                    Price = p.Price,
+                    Stock = p.Stock
+                });
+
+            return View(data);
+        }
+
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {

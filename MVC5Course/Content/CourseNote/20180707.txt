@@ -24,3 +24,5 @@ Ctrl + . == Alt + Enter
 參數中若是有中括號表示不必填
 
 SqlException → 資料庫回吐的錯訊
+
+透過 ViewModel 建立 View 時請將精靈提供的 data context class 刪除
