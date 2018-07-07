@@ -1,1 +1,26 @@
 Model
+
+資料模型(Model)
+描述資料的一種形式
+    XML
+    Class
+    Table Schema - Column
+    Custom Format - JSON
+
+View Model
+針對某一張頁面所設計的 Model(Class)
+
+Entity Framework 
+edmx 是很重要
+(本身就是一份 XML 檔)
+
+.tt - 程式碼產生器
+
+※前端所有的資訊對Server端來說都是不可靠的，所以驗證時應該是先
+Server端，有時間再來處理前端的驗證
+
+Ctrl + . == Alt + Enter
+
+參數中若是有中括號表示不必填
+
+SqlException → 資料庫回吐的錯訊
