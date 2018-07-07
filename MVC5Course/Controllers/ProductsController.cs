@@ -57,8 +57,18 @@ namespace MVC5Course.Controllers
             //    return RedirectToAction("Index");
             //}
 
+            var product = new Product()
+            {
+                ProductId = data.ProductId,
+                Active = true,
+                ProductName = data.ProductName,
+                Price = data.Price,
+                Stock = data.Stock
+            };
 
-
+            db.Product.Add(product);
+            db.SaveChanges();
+            
             //return View(data);
             return RedirectToAction("Index2");
         }
