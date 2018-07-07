@@ -26,3 +26,6 @@ Ctrl + . == Alt + Enter
 SqlException → 資料庫回吐的錯訊
 
 透過 ViewModel 建立 View 時請將精靈提供的 data context class 刪除
+
+View Model
+針對某一張頁面所設計的 Model
