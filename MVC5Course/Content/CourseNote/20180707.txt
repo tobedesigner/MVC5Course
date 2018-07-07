@@ -42,6 +42,16 @@ ORM → 模型轉換
 POCO → 用最簡單且無負擔的方式表達資料模型 例如 Products.cs
 可當 DTO 使用 → 序列化、反序列化(轉JSON)
 
+Model 要肥 - 商業邏輯、資料有效性、資料存取  
+Controller 要輕 - 控制流程的角色
+View 夠笨 - 呈現資料
+
+
+EFGeneratePartialClass.tt
+自動產生 MetadataType 的 T4 程式碼範本
+有新的 Table Column
+對此 tt 檔案按右鍵 點 執行自定工具
+
 
 
 

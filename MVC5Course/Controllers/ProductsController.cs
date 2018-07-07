@@ -81,6 +81,21 @@ namespace MVC5Course.Controllers
             return View(data);
         }
 
+        public ActionResult DeleteProduct(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index2");
+            }
+
+            var fineOne = db.Product.Find(id);
+            db.Product.Remove(fineOne);
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index2");
+        }
+
         [HttpPost]
         public ActionResult EditProduct(int id, ProductViewModel data)
         {
@@ -90,6 +105,12 @@ namespace MVC5Course.Controllers
             }
 
             var one = db.Product.Find(id);
+            var a = db.Product;
+            var b = db.Product.AsQueryable();
+            var c = db.Product.ToList();
+
+
+
             //使用 ValueInjecter 改善修改後的處理方式
             one.InjectFrom(data);
 
