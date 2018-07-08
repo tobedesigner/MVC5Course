@@ -1,1 +1,5 @@
-Modelstate
+使用者對 Clients/Create 操作之後
+→ Router → new ClientController → 找到對應的 
+
+
+Repository

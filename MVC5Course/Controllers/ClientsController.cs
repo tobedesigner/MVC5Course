@@ -12,13 +12,18 @@ namespace MVC5Course.Controllers
 {
     public class ClientsController : Controller
     {
-        private FabricsEntities1 db = new FabricsEntities1();
+        //private FabricsEntities1 db = new FabricsEntities1();
+        //ClientRepository repo = new ClientRepository();
+        ClientRepository repo = RepositoryHelper.GetClientRepository();
 
         // GET: Clients
         public ActionResult Index()
         {
-            var client = db.Client.Include(c => c.Occupation);
-            return View(client.OrderByDescending(c => c.ClientId).Take(5).ToList());
+            //var client = db.Client.Include(c => c.Occupation);
+            //return View(client.OrderByDescending(c => c.ClientId).Take(100).ToList());
+            //改用 Repository 實作
+            var client = repo.All();
+            return View(client.OrderByDescending(c => c.ClientId).Take(100).ToList());
         }
 
         // GET: Clients/Details/5
@@ -28,7 +33,10 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
+            //Client client = db.Client.Find(id);
+            //改用 Repository 實作
+            Client client = repo.All().FirstOrDefault(c => c.ClientId == id);
+
             if (client == null)
             {
                 return HttpNotFound();
@@ -39,7 +47,9 @@ namespace MVC5Course.Controllers
         // GET: Clients/Create
         public ActionResult Create()
         {
-            ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName");
+            //改用 Repository 實作
+            var occupRepo = RepositoryHelper.GetOccupationRepository();
+            ViewBag.OccupationId = new SelectList(occupRepo.All(), "OccupationId", "OccupationName");
             return View();
         }
 
@@ -54,12 +64,15 @@ namespace MVC5Course.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Client.Add(client);
-                db.SaveChanges();
+                //db.Client.Add(client);
+                //db.SaveChanges();
+                //改用 Repository 實作
+                repo.Add(client);
+                repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
+            var occuRepo = RepositoryHelper.GetOccupationRepository();
+            ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
 
@@ -70,12 +83,15 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
+            //Client client = db.Client.Find(id);
+            //改用 Repository 實作
+            Client client = repo.All().FirstOrDefault(c => c.ClientId == id);
             if (client == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
+            var occuRepo = RepositoryHelper.GetOccupationRepository();
+            ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
 
@@ -88,11 +104,16 @@ namespace MVC5Course.Controllers
         {
             if (ModelState.IsValid)
             {
+                //db.Entry(client).State = EntityState.Modified;
+                //db.SaveChanges();
+                //改用 Repository 實作
+                var db = repo.UnitOfWork.Context;
                 db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
+            var occuRepo = RepositoryHelper.GetOccupationRepository();
+            ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
 
@@ -103,7 +124,9 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
+            //Client client = db.Client.Find(id);
+            //改用 Repository 實作
+            Client client = repo.All().FirstOrDefault(c => c.ClientId == id);
             if (client == null)
             {
                 return HttpNotFound();
@@ -116,9 +139,13 @@ namespace MVC5Course.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Client client = db.Client.Find(id);
-            db.Client.Remove(client);
-            db.SaveChanges();
+            //Client client = db.Client.Find(id);
+            //db.Client.Remove(client);
+            //db.SaveChanges();
+            //改用 Repository 實作
+            Client client = repo.All().FirstOrDefault(c => c.ClientId == id);
+            repo.Delete(client);
+            repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }
 
@@ -126,9 +153,26 @@ namespace MVC5Course.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                //改用 Repository 實作
+                repo.UnitOfWork.Context.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Search(string keyword)
+        {
+            //var data = db.Client.Take(100).AsQueryable();
+            //改用 Repository 實作
+            var data = repo.All().Take(100).AsQueryable();
+            if (!string.IsNullOrEmpty(keyword))
+            {   
+                data = data.Where(c => c.FirstName.Contains(keyword));
+
+                return View("Index", data);
+            }
+
+            return View("Index", data);
         }
     }
 }
