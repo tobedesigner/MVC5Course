@@ -87,6 +87,15 @@ namespace MVC5Course.Models
         [IdCard]
         public string IdNumber { get; set; }
 
+        public Nullable<bool> IsDelete { get; set; }
+
+        //public string IsDeleteName {
+        //    get {
+        //        return IsDelete == true ? "已刪除" : "未刪除";
+        //    }
+        //}
+
+
         public virtual Occupation Occupation { get; set; }
         public virtual ICollection<Order> Order { get; set; }
     }
