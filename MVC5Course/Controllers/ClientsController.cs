@@ -45,6 +45,47 @@ namespace MVC5Course.Controllers
             return View(client);
         }
 
+        [Route("Detail2/{*name}")]
+        public ActionResult Detail2(string name)
+        {
+            //改成使用 Cache all
+            string[] names = name.Split('/');
+            var firstName = names[0];
+            var middleName = names[1];
+            var lastName = names[2];
+
+            if (name == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Client client = db.Client.Find(id);
+            //改用 Repository 實作
+            Client client = repo.All().FirstOrDefault(c => c.FirstName == firstName &&
+                            c.MiddleName == middleName && c.LastName == lastName);
+
+            if (client == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Details", client);
+
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            ////Client client = db.Client.Find(id);
+            ////改用 Repository 實作
+            //Client client = repo.All().FirstOrDefault(c => c.ClientId == id);
+
+            //if (client == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(client);
+        }
+
+
+
         [Route("Create")]
         public ActionResult Create()
         {
