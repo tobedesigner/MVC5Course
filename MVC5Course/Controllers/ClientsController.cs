@@ -10,13 +10,14 @@ using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
+    [RoutePrefix("Client")]
     public class ClientsController : Controller
     {
         //private FabricsEntities1 db = new FabricsEntities1();
         //ClientRepository repo = new ClientRepository();
         ClientRepository repo = RepositoryHelper.GetClientRepository();
 
-        // GET: Clients
+        [Route("")]
         public ActionResult Index()
         {
             //var client = db.Client.Include(c => c.Occupation);
@@ -26,7 +27,7 @@ namespace MVC5Course.Controllers
             return View(client.OrderByDescending(c => c.ClientId).Take(100).ToList());
         }
 
-        // GET: Clients/Details/5
+        [Route("Detail/{id}")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -44,7 +45,7 @@ namespace MVC5Course.Controllers
             return View(client);
         }
 
-        // GET: Clients/Create
+        [Route("Create")]
         public ActionResult Create()
         {
             //改用 Repository 實作
@@ -76,7 +77,7 @@ namespace MVC5Course.Controllers
             return View(client);
         }
 
-        // GET: Clients/Edit/5
+        [Route("Edit/{id}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -118,6 +119,7 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Clients/Delete/5
+        [Route("Destroy/{id}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

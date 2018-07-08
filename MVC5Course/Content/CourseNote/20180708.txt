@@ -3,3 +3,11 @@
 
 
 Repository
+
+Router
+1 比對瀏覽器傳來的 HTTP 要求
+2 用來產生 URL → 優化 SEO
+
+Glimps RouterDebugger
+
+
