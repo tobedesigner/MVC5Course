@@ -11,9 +11,10 @@ using Omu.ValueInjecter;
 
 namespace MVC5Course.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
-        private FabricsEntities1 db = new FabricsEntities1();
+        //改由繼承取得
+        //private FabricsEntities1 db = new FabricsEntities1();
 
         // GET: Products
         public ActionResult Index()
@@ -225,6 +226,11 @@ namespace MVC5Course.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Unknown()
+        {
+            return View();
         }
     }
 }

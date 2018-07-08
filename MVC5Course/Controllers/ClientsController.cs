@@ -11,7 +11,7 @@ using MVC5Course.Models;
 namespace MVC5Course.Controllers
 {
     [RoutePrefix("Client")]
-    public class ClientsController : Controller
+    public class ClientsController : BaseController
     {
         //private FabricsEntities1 db = new FabricsEntities1();
         //ClientRepository repo = new ClientRepository();

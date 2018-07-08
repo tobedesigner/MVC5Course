@@ -16,6 +16,12 @@ namespace MVC5Course
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            /*
+             由於 WebForm 的 ViewEngines 現在比較沒有在使用，若是還在則有可能當流量大時，會花比較多時間找到
+             View */
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
         }
     }
 }
