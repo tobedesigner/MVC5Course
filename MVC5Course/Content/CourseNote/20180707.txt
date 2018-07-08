@@ -50,7 +50,16 @@ View 夠笨 - 呈現資料
 EFGeneratePartialClass.tt
 自動產生 MetadataType 的 T4 程式碼範本
 有新的 Table Column
-對此 tt 檔案按右鍵 點 執行自定工具
+對此 tt 檔案按右鍵 點 執行自定工具它不會對現有的Model進行動作
+
+
+
+Request → Router(路由) 比對網址的結構找到對應的 Controller → New 出 Controller
+執行 Action (被執行且需要傳入資料) → Model Binding → 驗證每一筆 資料驗證 → 
+執行模型驗證 →  
+
+
+
 
 
 
