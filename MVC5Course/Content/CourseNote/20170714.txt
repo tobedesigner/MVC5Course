@@ -3,3 +3,20 @@ dynamic-linq
 ★模型繫結
 把用戶端的資料綁定到 Controller 內 對應的 Action 參數中
 
+Modelstate 的值是由 ModelBinding 而來
+當畫面同時有 Modelstate 及 Model 時 會優先以 ModelState 的資料為主
+
+按下 Post 
+找 Router
+找 Controller，New Controller
+找 Action
+準備參數，開始 ModelBinding
+找 Value 寫入一個欄位值，進行輸入驗證
+模型驗證
+ModelBing 完成，得到 ModelState 
+執行 Action
+判斷 ModelState
+
+
+
+

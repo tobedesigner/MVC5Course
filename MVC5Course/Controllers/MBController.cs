@@ -47,5 +47,19 @@ namespace MVC5Course.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult FormTest(FormCollection form)
+        {
+            //不會產生 ModelState， FormCollection 不管前端傳什麼都吃
+            //使用方式 ex: form[""]
+            if (ModelState.IsValid)
+            {
+
+                return RedirectToAction("Index");
+            }
+
+            return View(data);
+        }
     }
 }
