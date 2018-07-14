@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC5Course.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,13 @@ namespace MVC5Course.Controllers
 {
     public class MBController : Controller
     {
+        ClientRepository CRepo;
+
+        public MBController()
+        {
+            CRepo = RepositoryHelper.GetClientRepository();
+        }
+
         //介紹資料繫結
         public ActionResult Index()
         {
@@ -25,6 +33,7 @@ namespace MVC5Course.Controllers
         public ActionResult ViewDataDemo()
         {
             ViewData["_Data"] = "_DataResult";
+            ViewData["Clients"] = CRepo.All().Take(10).ToList();
             return View();
         }
 
