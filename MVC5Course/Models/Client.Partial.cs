@@ -8,7 +8,7 @@ namespace MVC5Course.Models
     [MetadataType(typeof(ClientMetaData))]
     public partial class Client : IValidatableObject
     {
-        //籍由在 .tt 檔裡面多
+        //籍由在改寫 .tt 檔，讓後續在 new Client.Partial 多了 Init 這個方法
         partial void Init()
         {
             this.City = "Taipei";

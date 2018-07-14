@@ -1,1 +1,5 @@
 dynamic-linq
+
+★模型繫結
+把用戶端的資料綁定到 Controller 內 對應的 Action 參數中
+
