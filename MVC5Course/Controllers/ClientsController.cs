@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using MVC5Course.Models.ViewModel;
 
 namespace MVC5Course.Controllers
 {
-    [RoutePrefix("Client")]
+    [RoutePrefix("Clients")]
     public class ClientsController : BaseController
     {
         //private FabricsEntities1 db = new FabricsEntities1();
@@ -24,7 +26,7 @@ namespace MVC5Course.Controllers
             //return View(client.OrderByDescending(c => c.ClientId).Take(100).ToList());
             //改用 Repository 實作
             var client = repo.All();
-            return View(client.OrderByDescending(c => c.ClientId).Take(100).ToList());
+            return View(client.OrderByDescending(c => c.ClientId).Take(10).ToList());
         }
 
         [Route("Detail/{id}")]
@@ -216,6 +218,47 @@ namespace MVC5Course.Controllers
             }
 
             return View("Index", data);
+        }
+
+        [HttpPost]
+        [Route("BatchUpdate")]
+        public ActionResult BatchUpdate(ClientBatchVM[] data)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var item in data)
+                {
+                    var client = repo.All().FirstOrDefault(c => c.ClientId == item.Clientid);
+                    client.FirstName = item.FirstName;
+                    client.MiddleName = item.MiddleName;
+                    client.LastName = item.LastName;
+                    client.Longitude = default(double);
+                    client.Latitude = default(double);
+                }
+
+                try
+                {
+                    repo.UnitOfWork.Commit();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    List<string> errors = new List<string>();
+                    foreach (var vError in ex.EntityValidationErrors)
+                    {
+                        foreach (var err in vError.ValidationErrors)
+                        {
+                            errors.Add(err.PropertyName + ":" + err.ErrorMessage);
+                        }
+                    }
+
+                    return Content(string.Join(", ", errors.ToArray()));
+                }
+                return RedirectToAction("Index");
+            }
+
+            ViewData.Model = repo.All().OrderByDescending(c => c.ClientId).Take(10);
+
+            return View("Index");
         }
     }
 }

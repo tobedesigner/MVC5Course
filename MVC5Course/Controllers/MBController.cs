@@ -59,7 +59,7 @@ namespace MVC5Course.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(data);
+            return View();
         }
     }
 }

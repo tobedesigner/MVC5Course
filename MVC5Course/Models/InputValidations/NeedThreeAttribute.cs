@@ -16,7 +16,7 @@ namespace MVC5Course.Models.InputValidations
         public override bool IsValid(object value)
         {
             string s = (string)value;
-            return s.Length == 3;
+            return s.Length >= 3;
         }
     }
 }

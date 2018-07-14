@@ -30,12 +30,9 @@ namespace MVC5Course.Models
                 //通常 P.K. 為 0 代表著正在執行「新增」動作
             }
 
-            if (Longitude.HasValue)
+            if (Longitude.HasValue != Latitude.HasValue)
             {
-                if (Latitude.HasValue)
-                {
-                    yield return new ValidationResult("Longitude 與 Latitude 欄位都要一起設定或一起不設定");
-                }
+                yield return new ValidationResult("Longitude 與 Latitude 欄位都要一起設定或一起不設定");
             }
         }
     }

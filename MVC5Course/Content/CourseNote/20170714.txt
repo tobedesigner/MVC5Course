@@ -17,6 +17,9 @@ ModelBing 完成，得到 ModelState
 執行 Action
 判斷 ModelState
 
+表單開發時，優先以 Controller 為主
+View 是依照 Controller 所輸出(回傳)的資料來處理如何呈現資料
+
 
 
 
