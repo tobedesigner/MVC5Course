@@ -12,14 +12,12 @@ using MVC5Course.Models.ViewModel;
 
 namespace MVC5Course.Controllers
 {
-    [RoutePrefix("Clients")]
     public class ClientsController : BaseController
     {
         //private FabricsEntities1 db = new FabricsEntities1();
         //ClientRepository repo = new ClientRepository();
         ClientRepository repo = RepositoryHelper.GetClientRepository();
 
-        [Route("")]
         public ActionResult Index()
         {
             //var client = db.Client.Include(c => c.Occupation);
@@ -29,7 +27,6 @@ namespace MVC5Course.Controllers
             return View(client.OrderByDescending(c => c.ClientId).Take(10).ToList());
         }
 
-        [Route("Detail/{id}")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -47,7 +44,6 @@ namespace MVC5Course.Controllers
             return View(client);
         }
 
-        [Route("Detail2/{*name}")]
         public ActionResult Detail2(string name)
         {
             //改成使用 Cache all
@@ -86,9 +82,6 @@ namespace MVC5Course.Controllers
             //return View(client);
         }
 
-
-
-        [Route("Create")]
         public ActionResult Create()
         {
             //改用 Repository 實作
@@ -120,7 +113,6 @@ namespace MVC5Course.Controllers
             return View(client);
         }
 
-        [Route("Edit/{id}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -140,20 +132,34 @@ namespace MVC5Course.Controllers
         }
 
         // POST: Clients/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes, IdNumber")] Client client)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //db.Entry(client).State = EntityState.Modified;
+        //        //db.SaveChanges();
+        //        //改用 Repository 實作
+        //        var db = repo.UnitOfWork.Context;
+        //        db.Entry(client).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    var occuRepo = RepositoryHelper.GetOccupationRepository();
+        //    ViewBag.OccupationId = new SelectList(occuRepo.All(), "OccupationId", "OccupationName", client.OccupationId);
+        //    return View(client);
+        //}
+
+        // POST: Clients/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes, IdNumber")] Client client)
+        public ActionResult Edit(int id, FormCollection form)
         {
-            if (ModelState.IsValid)
+            var client = repo.Find(id);
+            if (TryUpdateModel(client, "", null, new string[] { "FirstName" }))
             {
-                //db.Entry(client).State = EntityState.Modified;
-                //db.SaveChanges();
-                //改用 Repository 實作
-                var db = repo.UnitOfWork.Context;
-                db.Entry(client).State = EntityState.Modified;
-                db.SaveChanges();
+                repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
             var occuRepo = RepositoryHelper.GetOccupationRepository();
@@ -162,7 +168,6 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Clients/Delete/5
-        [Route("Destroy/{id}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -221,7 +226,6 @@ namespace MVC5Course.Controllers
         }
 
         [HttpPost]
-        [Route("BatchUpdate")]
         public ActionResult BatchUpdate(ClientBatchVM[] data)
         {
             if (ModelState.IsValid)

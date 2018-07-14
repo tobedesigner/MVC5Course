@@ -15,6 +15,11 @@ namespace MVC5Course.Models
         {
             entity.IsDelete = true;
         }
+
+        public Client Find(int id)
+        {
+            return All().FirstOrDefault(c => c.ClientId == id);
+        } 
     }
 
 	public  interface IClientRepository : IRepository<Client>
