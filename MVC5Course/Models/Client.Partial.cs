@@ -8,6 +8,12 @@ namespace MVC5Course.Models
     [MetadataType(typeof(ClientMetaData))]
     public partial class Client : IValidatableObject
     {
+        //籍由在 .tt 檔裡面多
+        partial void Init()
+        {
+            this.City = "Taipei";
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (DateOfBirth.HasValue && City != "")

@@ -13,5 +13,3 @@ Glimps RouterDebugger
 萬用 content-type
 application/octet-stream
 
-做一套 CRUD 
-並做到 下載客戶資料

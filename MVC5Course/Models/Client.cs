@@ -15,9 +15,12 @@ namespace MVC5Course.Models
     public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Client()
+        
+    	partial void Init();
+    	public Client()
         {
             this.Order = new HashSet<Order>();
+    		Init();
         }
     
         public int ClientId { get; set; }
