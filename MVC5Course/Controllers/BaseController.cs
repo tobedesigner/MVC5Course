@@ -13,8 +13,8 @@ namespace MVC5Course.Controllers
 
         protected override void HandleUnknownAction(string actionName)
         {
-            //RedirectToAction("Index").ExecuteResult(ControllerContext);
-            RedirectToAction("UnKnown").ExecuteResult(ControllerContext);
+            RedirectToAction("Index").ExecuteResult(ControllerContext);
+            //RedirectToAction("UnKnown").ExecuteResult(ControllerContext);
         }
     }
 }

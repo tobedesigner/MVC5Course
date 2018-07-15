@@ -250,5 +250,12 @@ namespace MVC5Course.Controllers
 
             return View("Index");
         }
+
+        public ActionResult Details_OrderList(int id)
+        {
+            ViewData.Model = repo.All().FirstOrDefault(c => c.ClientId == id).Order.ToList();
+
+            return PartialView("OrderList");
+        }
     }
 }

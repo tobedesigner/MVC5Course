@@ -140,7 +140,14 @@
 
     </dl>
 </div>
+
+<h3>OrderList (Html.Partial)</h3>
+@Html.Partial("OrderList", Model.Order.ToList())
+<h3>OrderList (Html.Action)</h3>
+@Html.Action("Details_OrderList", new { id = Model.ClientId })
+
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </p>

@@ -18,7 +18,7 @@ namespace MVC5Course.Models
 
         public Client Find(int id)
         {
-            return All().FirstOrDefault(c => c.ClientId == id);
+            return base.All().FirstOrDefault(c => c.ClientId == id);
         } 
     }
 
