@@ -226,6 +226,8 @@ namespace MVC5Course.Controllers
         }
 
         [HttpPost]
+        [HandleError(ExceptionType = typeof(DbEntityValidationException), 
+            View = "Error_DbEntityValidationException")]
         public ActionResult BatchUpdate(ClientBatchVM[] data)
         {
             if (ModelState.IsValid)
@@ -239,24 +241,8 @@ namespace MVC5Course.Controllers
                     client.Longitude = default(double);
                     client.Latitude = default(double);
                 }
+                repo.UnitOfWork.Commit();
 
-                try
-                {
-                    repo.UnitOfWork.Commit();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    List<string> errors = new List<string>();
-                    foreach (var vError in ex.EntityValidationErrors)
-                    {
-                        foreach (var err in vError.ValidationErrors)
-                        {
-                            errors.Add(err.PropertyName + ":" + err.ErrorMessage);
-                        }
-                    }
-
-                    return Content(string.Join(", ", errors.ToArray()));
-                }
                 return RedirectToAction("Index");
             }
 

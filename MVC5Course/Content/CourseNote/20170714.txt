@@ -25,5 +25,23 @@ Action 之前就執行完成並提供給 Action 取得 Model Binding 後的結�
 
 延遲驗證
 
+AOP
+
+================ MVC 生命週期 加上 動作過濾器 =================
+Routing
+Controller
+    Model-Binding
+    OnAuthentication
+    OnAuthenticaltionChallenge
+    OnAuthorization
+    OnActionExecuting
+Action
+    OnActionExecuted
+    OnResultExecuting
+ActionResult
+    OnResultExecuted
+    OnExecption
+
+
 
 
