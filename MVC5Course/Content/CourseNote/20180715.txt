@@ -1,0 +1,19 @@
+Razor
+@( 一行 )
+
+@{
+    區塊
+}
+
+※ 區分程式碼區塊、文字區塊
+程式碼區塊內容都是 C# 語法
+
+Razor 換行需要 2 個 Enter
+
+View 生命週期
+_ViewStart
+主要的 View
+_Layout
+
+
+套版 -  Bootstrap_Metro_Dashboard-master
