@@ -19,9 +19,25 @@ _Layout
 套版 -  Bootstrap_Metro_Dashboard-master
 將老師提供的檔案加入到專案中
 
-先 確認 Html 可以變 Razor 
-
+先 確認 Html 可以變 Razor
 RazorController add Dashboard Action & add View
 將 index.html 複製貼上到 View 裡面並確認可以顯示
 (應該會找不到 css、圖片、javascript 路徑需要修正)
+
+
+view → 本身就是一個 Class(類別)
+web.config 加入 <customErrors mode="Off"></customErrors>
+並在一張 View 裡面搞破壞產生黃皮頁，就會有動態的檔案可以開啟
+開啟後就會發現 View 本身就是一個 Class 
+Layout 是此 Class 其中一個屬性
+
+
+@{
+    var routes = ViewContext.RouteData.Values;
+}
+@routes["id"].ToString()
+
+//在 View 取得 ModelState 的資訊
+@ViewData.ModelState["id"].Value.AttemptedValue
+
 
