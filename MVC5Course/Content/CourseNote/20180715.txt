@@ -41,3 +41,8 @@ Layout 是此 Class 其中一個屬性
 @ViewData.ModelState["id"].Value.AttemptedValue
 
 
+各種用 @Html 的預設值
+第一優先順位是 ModelState
+View 直接給值
+第二優先順位是 Model(只要 Model 裡面有對應的屬性名稱就會 Mapping)
+★第三順位是 ViewBag

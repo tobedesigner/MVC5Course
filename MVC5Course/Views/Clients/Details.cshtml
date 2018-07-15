@@ -151,3 +151,7 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }, new { @class = "btn btn-default" }) |
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </p>
+
+比對這 2 個 ActionLink 的超連結
+@Html.ActionLink("HelloLink", "Index", "Home", new { @class = "btn btn-default" })
+@Html.ActionLink("HelloLink", "Index", "Home", null, new { @class = "btn btn-default" })
