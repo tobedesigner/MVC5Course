@@ -23,7 +23,20 @@ namespace MVC5Course.Controllers
             //var client = db.Client.Include(c => c.Occupation);
             //return View(client.OrderByDescending(c => c.ClientId).Take(100).ToList());
             //改用 Repository 實作
+
+            var items = repo.All()
+                .Select(c => c.CreditRating)
+                .Distinct()
+                .OrderBy(c => c)
+                .Select(c => new SelectListItem()
+                {
+                    Text = c.Value.ToString(),
+                    Value = c.Value.ToString()
+                });
+            ViewBag.CreditRating = new SelectList(items, "Value", "Text");
+
             var client = repo.All();
+
             return View(client.OrderByDescending(c => c.ClientId).Take(10).ToList());
         }
 
@@ -210,7 +223,7 @@ namespace MVC5Course.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Search(string keyword)
+        public ActionResult Search(string keyword, string CreditRating)
         {
             //var data = db.Client.Take(100).AsQueryable();
             //改用 Repository 實作
@@ -221,6 +234,22 @@ namespace MVC5Course.Controllers
 
                 return View("Index", data);
             }
+
+
+            //Note: 由於 CreditRating 因為有 ModelBinding 的關係，所以有 View 上面的
+            //DropDownList 是可以繫結到預設值，不需要再設定 ViewBag.CreditRating 的預設值
+
+            var items = repo.All()
+                .Select(c => c.CreditRating)
+                .Distinct()
+                .OrderBy(c => c)
+                .Select(c => new SelectListItem()
+                {
+                    Text = c.Value.ToString(),
+                    Value = c.Value.ToString()
+                });
+            ViewBag.CreditRating = new SelectList(items, "Value", "Text");
+            //ViewBag.CreditRating = new SelectList(items, "Value", "Text", CreditRating);
 
             return View("Index", data);
         }

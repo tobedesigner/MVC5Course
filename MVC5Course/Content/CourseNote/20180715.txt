@@ -43,6 +43,12 @@ Layout 是此 Class 其中一個屬性
 
 各種用 @Html 的預設值
 第一優先順位是 ModelState
-View 直接給值
-第二優先順位是 Model(只要 Model 裡面有對應的屬性名稱就會 Mapping)
-★第三順位是 ViewBag
+第二優先順位是 View 直接給值
+★第三優先順位是 ViewBag
+第四優先順位是 Model(只要 Model 裡面有對應的屬性名稱就會 Mapping)
+
+由以上可以推得知
+@Html.DropDownList 的預設值也是依此順序繫結
+
+
+範本
